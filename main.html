@@ -1,0 +1,57 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.js"integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="card col">
+                <div class="card-block">
+                    <form>
+                        <div class="form-group form-inline">
+                            <label class="col-1">Type</label>
+                            <select class="col-3 form-control" id="type">
+                                <option value="GET">GET</option>
+                                <option value="POST">POST</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-inline">
+                            <label class="col-1">URL</label>
+                            <input class="col form-control" id="url">
+                        </div>
+                        <div class="form-group form-inline">
+                            <label class="col-1">Port</label>
+                            <input class="col form-control" id="port" value="80">
+                        </div>
+                        <button type="button" class="btn btn-primary" id="submit">Submit</button>
+                    </form>
+                    <script>
+                        window.onload = () => {
+                            $(document).on("click", "#submit", () => {
+                                $.ajax({
+                                    url: "/request",
+                                    type: "post",
+                                    data: {
+                                        type: $("#type").val(),
+                                        url: $("#url").val(),
+                                        port: $("#port").val()
+                                    }
+                                }).done((result) => {
+                                    $("#result")[0].innerHTML = result;
+                                })
+                            })
+                        }
+                    </script>
+                </div>
+            </div>
+            <div class="card col">
+                <div class="card-block">
+                    <div id="result"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
